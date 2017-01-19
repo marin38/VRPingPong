@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong VR", "Pong VR.csproj", "{1007A484-358C-D200-C0DB-2A3BBCF73C16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong VR.Editor", "Pong VR.Editor.csproj", "{5C2244A9-AE25-646B-473F-EFE2B2B9995A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1007A484-358C-D200-C0DB-2A3BBCF73C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1007A484-358C-D200-C0DB-2A3BBCF73C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1007A484-358C-D200-C0DB-2A3BBCF73C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1007A484-358C-D200-C0DB-2A3BBCF73C16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C2244A9-AE25-646B-473F-EFE2B2B9995A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2244A9-AE25-646B-473F-EFE2B2B9995A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2244A9-AE25-646B-473F-EFE2B2B9995A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2244A9-AE25-646B-473F-EFE2B2B9995A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
