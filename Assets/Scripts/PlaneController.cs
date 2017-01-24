@@ -6,7 +6,8 @@ public class PlaneController : MonoBehaviour {
 
     public float movespeed = 5f;
 
-    public GameObject playPlane;
+    //public GameObject playPlane;
+    public Transform controller;
 
 	void Start ()
     {
@@ -15,9 +16,12 @@ public class PlaneController : MonoBehaviour {
 	
 	void Update ()
     {
-        float x = Input.GetAxis("Mouse X") * movespeed;
-        float y = Input.GetAxis("Mouse Y") * movespeed;
+        //float x = Input.GetAxis("Mouse X") ;
+       // float y = Input.GetAxis("Mouse Y") ;
+       // float y = Input.GetAxis("Mouse Y") ;
 
-        GetComponent<Rigidbody>().MovePosition(transform.position + new Vector3(x, 0, y));
+       // GetComponent<Rigidbody>().MovePosition(transform.position + new Vector3(x, 0, y));
+        GetComponent<Rigidbody>().MovePosition(controller.position);
+        GetComponent<Rigidbody>().MoveRotation(controller.rotation);
     }
 }
