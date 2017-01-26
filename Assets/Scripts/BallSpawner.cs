@@ -30,7 +30,7 @@ public class BallSpawner : MonoBehaviour {
             nextTimeBallSpawn = Time.time + spawnInterval;
             GameObject ball = (GameObject)Instantiate(BallPrefub, BallSpawn.position, BallSpawn.rotation);
             //ball.GetComponent<Rigidbody>().angularVelocity = new Vector3(10000*Mathf.PI, 10000*Mathf.PI, 10000*Mathf.PI);
-            ball.GetComponent<Rigidbody>().velocity = BallPrefub.transform.forward * velocity;
+            ball.GetComponent<Rigidbody>().velocity = BallSpawn.transform.forward * velocity;
             Destroy(ball, ballTimeLife);
         }
 	}

@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlaneController : MonoBehaviour {
-
-   // public float movespeed = 5f;
-
-    //public GameObject playPlane;
     public Transform controller;
 
 	void Start ()
@@ -25,5 +21,10 @@ public class PlaneController : MonoBehaviour {
         GetComponent<Rigidbody>().MoveRotation(controller.rotation * Quaternion.Euler(180, 0, 0));
         //GetComponent<Rigidbody>().MoveRotation( Quaternion.Euler( 180, 0, 0));
 
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {   
+        SteamVR_Controller.Input(4).TriggerHapticPulse(1000);
     }
 }
