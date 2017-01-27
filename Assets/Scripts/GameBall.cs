@@ -7,9 +7,14 @@ public class GameBall : MonoBehaviour {
         get { return _ballState; }
         set {
             _ballState = value;
+            LatestUpdateState = Time.time;
 
-            TextMesh tm = GameObject.FindGameObjectWithTag("New text").GetComponent<TextMesh>();
-            tm.text = _ballState.ToString();
+            GameObject gameObject = GameObject.FindGameObjectWithTag("New text");
+            if (gameObject != null)
+            {
+                TextMesh tm = gameObject.GetComponent<TextMesh>();
+                tm.text = _ballState.ToString();
+            }
         }
     }
 
@@ -28,6 +33,28 @@ public class GameBall : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // TODO: handle the outs
+        if (transform.position.y < 0.2)
+        {
+            switch (BallState)
+            {
+                case BallState.HIT_BY_PLAYER:
+                    // the ball is hit by 
+                    Game.IncreaseCount(Game.Opponent(CurrentPlayer));
+                    BallState = BallState.OUT;
+                    break;
+                case BallState.HIT_OPPONENTS_FIELD:
+                    // the ball is hit by 
+                    Game.IncreaseCount(CurrentPlayer);
+                    BallState = BallState.OUT;
+                    break;
+            }
+        }
+
+        if (Time.time - LatestUpdateState > 5.0)
+        {
+            BallState = BallState.OUT;
+            LatestUpdateState = Time.time;
+        }
 	}
 
     void OnCollisionEnter(Collision collision)
@@ -41,12 +68,13 @@ public class GameBall : MonoBehaviour {
             {
                 case BallState.HIT_BY_PLAYER:
                 case BallState.PITCHED_AFTER_HITTING_PLAYERS_FIELD:
-                    if (table.player != CurrentPlayer) // after hitting player hit to his own table side
+                    if (table.player != CurrentPlayer) 
                     {
                         BallState = BallState.HIT_OPPONENTS_FIELD;
                     }
-                    else
+                    else // after hitting player hit to his own table side
                     {
+                        Game.IncreaseCount(Game.Opponent(CurrentPlayer));
                         BallState = BallState.OUT;
                     }
                     break;
@@ -57,11 +85,9 @@ public class GameBall : MonoBehaviour {
                     }
                     else
                     {
+                        Game.IncreaseCount(Game.Opponent(CurrentPlayer));
                         BallState = BallState.OUT;
                     }
-                    break;
-                default:
-                    BallState = BallState.OUT;
                     break;
             }
         }
@@ -98,18 +124,46 @@ public static class Game
 
     private static readonly int SCORE_TO_WIN = 21;
 
+    private static readonly TextMesh player1Counter = GameObject.Find("Player1Counter").GetComponent<TextMesh>();
+    private static readonly TextMesh player2Counter = GameObject.Find("Player2Counter").GetComponent<TextMesh>();
+
     static Game()
     {
         PlayerOneCount = 0;
         PlayerTwoCount = 0;
     }
 
-    public static int PlayerOneCount { get; set; }
-    public static int PlayerTwoCount { get; set; }
+    public static void IncreaseCount(Player player)
+    {
+        if (player == Player.PLAYER_ONE)
+        {
+            PlayerOneCount += 1;
+        } else
+        {
+            PlayerTwoCount += 1;
+        }
+    }
+
+    public static int PlayerOneCount {
+        get { return _p1Count;  }
+        set { _p1Count = value; player1Counter.text = _p1Count.ToString(); }
+    }
+    private static int _p1Count;
+
+    public static int PlayerTwoCount {
+        get { return _p2Count; }
+        set { _p2Count = value;  player2Counter.text = _p2Count.ToString(); }
+    }
+    private static int _p2Count;
 
     public static bool IsGameFinshed()
     {
         return PlayerOneCount == SCORE_TO_WIN || PlayerTwoCount == SCORE_TO_WIN;
+    }
+
+    public static Player Opponent(Player player)
+    {
+        return Player.PLAYER_ONE == player ? Player.PLAYER_TWO : Player.PLAYER_ONE;
     }
 
     public static Player? getWinner()
